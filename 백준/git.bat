@@ -1,4 +1,0 @@
-cd C:\Users\FBG\Downloads\tdd\codingtest
-git add .
-git commit -m "daily coding"
-git push origin main
