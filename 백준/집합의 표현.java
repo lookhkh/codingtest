@@ -1,4 +1,4 @@
-//https://www.acmicpc.net/problem/17484
+//https://www.acmicpc.net/problem/1717
 
 package b0417;
 
@@ -7,71 +7,53 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main17484 {
-
-	static int n;
-	static int m;
-	static int[][] arr;
-	static int min = Integer.MAX_VALUE;
-	//dir => 0 왼, 1 아래, 2 오른쪽
+public class Main1717 {
 	
+	static int[] arr;
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer tk;
 		
 		tk = new StringTokenizer(br.readLine()," ");
 		
-		n = Integer.valueOf(tk.nextToken());
-		m = Integer.valueOf(tk.nextToken());
+		int n = Integer.valueOf(tk.nextToken());
+		int m = Integer.valueOf(tk.nextToken());
 		
-		arr = new int[n][m];
+		arr = new int[n+1];
 		
-		for(int i=0; i<n; i++) {
+		for(int i=0; i<arr.length; i++) {
+			arr[i] = i;
+		}
+		
+		for(int i=0; i<m; i++) {
 			
 			tk = new StringTokenizer(br.readLine()," ");
+			int cmd = Integer.valueOf(tk.nextToken());
+			int a = Integer.valueOf(tk.nextToken());
+			int b = Integer.valueOf(tk.nextToken());
 			
-			for(int j=0; j<m; j++) {
-				
-				arr[i][j] = Integer.valueOf(tk.nextToken());
-				
-			}
-		}
-		
-		for(int start=0; start<arr[0].length; start++) {
-			
-			for(int dir=0; dir<3; dir++) {
-				dfs(start,dir, 0, arr[0][start]);
+			if(cmd ==0 ) union(a,b);
+			else {
+				if(find(a)==find(b)) System.out.println("YES");
+				else System.out.println("NO");
 			}
 			
 		}
-
-		System.out.println(min);
 	}
 
-	private static void dfs(int start, int dir, int cnt, int sum) {
+	private static void union(int a, int b) {
 		
-		if(cnt == arr.length-1) {
-			min = Math.min(sum, min);
-		}else {
-			
-			for(int i=0; i<3; i++) {
-				
-				if(i == dir) continue;
-				int next = start+getDirection(dir);
-				if(!(next>=0 && next<arr[0].length)) continue;
-				
-				dfs(next,i,cnt+1, sum+arr[cnt+1][next]);
-				
-			}
-			
-		}
-
+		int at = find(a);
+		int bt = find(b);
+		
+		if(at != bt) arr[bt] = at;
+		
 	}
 
-	private static int getDirection(int dir) {
-		if(dir == 0) return -1;
-		if(dir == 1) return 0;
-		return 1;
+	private static int find(int a) {
 		
+		if(arr[a] == a) return a;
+		return arr[a] = find(arr[a]);
 	}
 }
