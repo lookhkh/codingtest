@@ -45,7 +45,7 @@ public class Main {
 		if( start == end ) return 0;
 		if(dp[start][end]!= Long.MAX_VALUE) return dp[start][end];
 
-		if( start+1 == end ) return dp[start][end] = arr[end] - arr[end-2];
+		if( start+1 == end ) return dp[start][end] = arr[end] - arr[start-1];
 		
 		
 		for(int i=start; i<=end; i++) {
