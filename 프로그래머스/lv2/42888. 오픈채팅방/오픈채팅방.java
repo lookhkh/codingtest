@@ -42,7 +42,7 @@ class Solution {
         public User(String id, String alias){
             this.id = id;
             this.alias = alias;
-            this.commnads= new ArrayList<>();
+            this.commnads= new LinkedList<>();
         }
         
         public List<Command> getCmds(){
@@ -66,8 +66,8 @@ class Solution {
     Map<String, User> log;
     
     public List<String> solution(String[] records) {
-        log = new HashMap<>();
         
+        log = new HashMap<>();
         
         for(int i=0; i<records.length; i++){
            
@@ -93,7 +93,6 @@ class Solution {
                     log.put(userId, newUser);
                 }else{
                     
-                    
                     User user = log.get(userId);
                     
                     if(!user.alias.equals(alias)){
@@ -101,11 +100,7 @@ class Solution {
                     }
                     
                     user.addCommand(cmd);
-                    
-                    
                 }
-                
-                
                 
             }else if(action.equals("Leave")){
                 
@@ -113,7 +108,6 @@ class Solution {
                 User leftUser = log.get(userId);
                 
                 leftUser.addCommand(cmd);
-                
                 
                 
             }else if(action.equals("Change")){
@@ -124,7 +118,6 @@ class Solution {
                 User changeUser = log.get(userId);
                 changeUser.addCommand(cmd);
                 changeUser.changeName(changeName);
-                
                 
             }
         }
