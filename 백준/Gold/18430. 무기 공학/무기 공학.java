@@ -36,14 +36,10 @@ public class Main {
 		
 		
 		ch = new boolean[n][m];
-		for(int i=0; i<n; i++) {
-			for(int j=0; j<m; j++) {
-				
-				dfs(i,j, 0);
-				
-			}
-		}
 		
+				dfs(0,0, 0);
+				
+	
 		System.out.println(max);
 		
 		
