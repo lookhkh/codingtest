@@ -28,7 +28,6 @@ class Solution {
     
     public void dfs(int num, int x,int y, int n, int padding){
         if(x >= total) return;
-        if( y >x+1) return;
         if(map[x][y]!=0) return;
         
         for(int i=x; i<x+n; i++){
