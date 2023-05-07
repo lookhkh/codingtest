@@ -1,47 +1,21 @@
 class Solution {
     public int solution(String s) {
-        int answer = 0;
-        
-        
-        char default_val = ' ';
-        char previous = default_val;
-        int cntOfX = 0;
-        int cntOfNotX = 0;
-        
-        for(int i=0; i<s.length(); i++){
-            
-            char next = s.charAt(i);
-            
-            if(previous == default_val) {
-                previous = next;
-                cntOfX+=1;
-            } else{
-                
-                if(next == previous){
-                    cntOfX ++;
-                }else{
-                    cntOfNotX ++;
-                }
-                
-                if(cntOfX == cntOfNotX){
-
-                    cntOfX = 0;
-                    cntOfNotX = 0;
-                    previous = default_val;
-                    answer ++;
-                }
-                
-                
-                
+        int count = 0;
+        int left=0, right=0;
+        int n = s.length();
+        while(right<n){
+            char c = s.charAt(right);
+            int cCount = 1;
+            int otherCount = 0;
+            while(right+1<n && cCount != otherCount){
+                right++;
+                if(s.charAt(right) == c) cCount++;
+                else otherCount++;
             }
-            
-                if(i == s.length()-1){
-                    if(cntOfX != cntOfNotX) answer++;
-                }
-            
-            
+            count++;
+            right++;
+            left=right;
         }
-        
-        return answer;
+        return count;
     }
 }
