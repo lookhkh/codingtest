@@ -42,14 +42,10 @@ public class Main {
 			
 		}
 	
-		Arrays.sort(arr,(t1,t2)->{
-			if(t1[0] == t2[0]) return Integer.compare(t1[1], t2[1]);
-			else {
 				
-				return Integer.compare(t1[0], t2[0]);
-				
-			}
-		});
+		    map
+			.values()
+			.forEach(t->t.sort(null));
 		
 		for(int[] w : arr) {
 			
