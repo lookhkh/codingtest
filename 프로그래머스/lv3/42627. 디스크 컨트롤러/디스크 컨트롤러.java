@@ -35,9 +35,7 @@ class Solution {
         int resIdx = 0;
                 
         int lastTime = 0;
-        
-        int[] lastWork = null;
-        
+                
         for(int i=0; i<500_001; i++){
             
             if(map.containsKey(i)){
@@ -53,7 +51,7 @@ class Solution {
            
           if(!que.isEmpty()){
                 
-              lastWork = que.poll();
+              int[] lastWork = que.poll();
                             
               res[resIdx++] = i-lastWork[0] + lastWork[1];
               
