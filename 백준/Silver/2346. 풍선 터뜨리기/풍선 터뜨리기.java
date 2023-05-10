@@ -9,7 +9,8 @@ public class Main {
 	
 	static int[] list;
 	static boolean[] ch;
-	
+	static int firstIdx = 0;
+	static int lastIdx = -1;
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.valueOf(br.readLine());
@@ -18,6 +19,7 @@ public class Main {
 		
 		list = new int[n];
 		ch = new boolean[n];
+		lastIdx = ch.length-1;
 		
 		for(int i=0; i<n; i++) {
 			int next = Integer.valueOf(tk.nextToken());
@@ -25,6 +27,7 @@ public class Main {
 		}
 
 		int idx = 0;
+		
 		List<Integer> result = new ArrayList<>();
 		
 		while(result.size() <= n-1) {
@@ -52,17 +55,14 @@ public class Main {
 	private static int getNextIdx(int next, int idx) {
 
 		
-		int firstIdx = -1;
-		int lastIdx = -1;
-		
-		for(int i=0; i<ch.length; i++) {
+		for(int i=firstIdx; i<ch.length; i++) {
 			if(!ch[i]) {
 				firstIdx = i; 
 				break;
 			}
 		}
 		
-		for(int i=ch.length-1; i>=0; i--) {
+		for(int i=lastIdx; i>=0; i--) {
 			if(!ch[i]) {
 				lastIdx = i; 
 				break;
