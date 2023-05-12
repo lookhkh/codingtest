@@ -8,17 +8,17 @@ class Solution {
         
         int max =times[times.length-1];
         
-        long left = 1;
-        long right = (long) max * n;
-        
+        long left = 0;
+        long right = (long)max * n;
+        System.out.println(right);
         long min = Long.MAX_VALUE;
         
-        while(left <= right){
+        while(left < right){
                 
-            long mid = left+(right - left) /2;
+            long mid = (right + left) /2;
             if(check(mid, n, times)){
                 
-                right = mid-1;
+                right = mid;
                 min = Math.min(min,mid);
                 
             }else{
