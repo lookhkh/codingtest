@@ -8,7 +8,7 @@ class Solution {
         
         int max =times[times.length-1];
         
-        long left = 0;
+        long left = 1;
         long right = (long) max * n;
         
         long min = Long.MAX_VALUE;
