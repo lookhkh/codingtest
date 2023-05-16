@@ -12,13 +12,12 @@ public class Main {
 		
 		StringTokenizer tk = new StringTokenizer(br.readLine()," ");
 		
-		long a = Long.valueOf(tk.nextToken());
-		long b = Long.valueOf(tk.nextToken());
+		double a = Double.valueOf(tk.nextToken());
+		double b = Double.valueOf(tk.nextToken());
 		
-		boolean[] arr = new boolean[(int)Math.sqrt(b)+1];
+		boolean[] arr = new boolean[(int)Math.sqrt((long)b)+1];
 		
 		Arrays.fill(arr, true);
-		
 	
 		아르티네스의체(arr);
 		long cnt = 0;
@@ -29,7 +28,7 @@ public class Main {
 			int n = 2;
 			while(true) {
 				
-				long temp = (long) Math.pow(i, n++);
+				double temp =  Math.pow(i, n++);
 				if(temp >=a && temp <= b) cnt++;
 				if(temp > b) break;
 			}
