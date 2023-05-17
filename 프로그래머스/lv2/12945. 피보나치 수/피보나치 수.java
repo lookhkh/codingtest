@@ -1,25 +1,19 @@
-import java.util.ArrayList;
-import java.util.List;
-
 class Solution {
-      public int solution(int n) {
+    int[] dp ;
+    public int solution(int n) {
+        int answer = 0;
+        int divide = 1234567;
+        if(n == 2) return 1;
         
-        return noDfs(n);
-    }
-    
-    
-    public int noDfs(int n) {
-    	List<Integer> list = new ArrayList<>();
-    	list.add(0, 0);
-    	if(n>0) {
-    		list.add(1,1);
-    		for(int i=2; i<=n; i++) {
-    			list.add(i,(list.get(i-1)+list.get(i-2))%1234567); 
-    		}
-    	}
-    	
-    	
-    	return list.get(list.size()-1);
-
+        dp = new int[n+1];
+        dp[0] = 0;
+        dp[1] = 1;
+        
+        for(int i=2; i<=n; i++){
+            dp[i] = dp[i-1]%divide+dp[i-2]%divide;
+            dp[i]%=divide;
+        }
+        
+        return dp[n];
     }
 }
