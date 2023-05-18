@@ -10,8 +10,8 @@ class Solution {
         dp[2] = 2;
         
         for(int i=3; i<=n; i++){
-            dp[i] = dp[i-1]%1234567+dp[i-2]%1234567;
-            dp[i]%=1234567;
+            dp[i] = dp[i-1]%divide+dp[i-2]%divide;
+            dp[i]%=divide;
         }
         
         
