@@ -11,32 +11,10 @@ import java.util.*;
     0부터 시작.
 */
 public class Solution {
-    static class Step{
-        int idx;
-        int cost;
-        
-        public Step(int idx, int cost){
-            this.idx = idx;
-            this.cost = cost;
-        }
-        
-    }
+   
     public int solution(int n) {
-        
-        int ans = 0;
-        
-        while(n != 0){
-            
-            if(n % 2 == 0) n = n/2;
-            else{
-                n-=1;
-                ans++;
-            } 
-            
-        }
-        
-        
-        return ans;
+
+        return Integer.bitCount(n);
     }
 
 
