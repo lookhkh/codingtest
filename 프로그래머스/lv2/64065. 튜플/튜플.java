@@ -15,31 +15,31 @@
     {3,2,1}
     
 */
+import static java.util.stream.Collectors.*;
 import java.util.*;
 import java.lang.StringBuilder;
+import java.util.Arrays;
 
 class Solution {
     
-    int[] nums;
     public int[] solution(String s) {
         int[] answer = {};
-        
-        nums = new int[100_001];
-        
+                
         s = s.substring(1,s.length()-1);
                 
-        List<String> list = getStringArr(s);
+        List<String[]> list = getStringArr(s);
         
-        list.sort((t1,t2)->Integer.compare(t1.split(",").length,t2.split(",").length));
-        
+        list.sort((t1,t2)->Integer.compare(t1.length,t2.length));
         
         answer = new int[list.size()];
         
         int nextIdx = 0;
         
+        int[] nums = new int[100_001];
+
         for(int i=0; i<list.size(); i++){
             
-            String[] next = list.get(i).split(",");
+            String[] next = list.get(i);
             
             for(int j=0; j<next.length; j++){
                 
@@ -58,35 +58,13 @@ class Solution {
         return answer;
     }
     
-    public List<String> getStringArr(String s){
-        
-        List<String> list = new ArrayList<>();
-       
-        int idx = 0;
-        
-        while(idx<s.length()){
-            
-            char next = s.charAt(idx++);
-            
-            if(next == '{'){
+    public List<String[]> getStringArr(String s){
                 
-                StringBuilder b = new StringBuilder();
-                
-                while(idx < s.length()){
-                    
-                    char nextSubChar = s.charAt(idx++);
-                    
-                    if(nextSubChar == '}') break;
-                    
-                    b.append(nextSubChar);
-                    
-                }
-                
-                list.add(b.toString());
-            }
-            
-        }
+        s= s.replaceAll("\\{"," ").replaceAll("\\}"," ").trim();
         
-        return list;
+        return  Arrays.stream(s.split(" , "))
+                      .map(t->t.split(","))
+                      .collect(toList());
+        
     }
 }
