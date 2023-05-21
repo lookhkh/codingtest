@@ -1,67 +1,56 @@
-import java.util.*;
-
+/*
+    n진법 게임
+    한 턴에 하나의 기호만을 출력한다. 
+    즉, 10일 경우, 1,0 처럼
+    
+*/
+import java.lang.StringBuilder;
 class Solution {
-    
-    Map<Integer,String> code;
-    
     public String solution(int n, int t, int m, int p) {
-        String answer = "";
-        code = new HashMap<>();
+        StringBuilder answer = new StringBuilder();
         
-        code.put(10,"A");
-        code.put(11,"B");
-        code.put(12,"C");
-        code.put(13,"D");
-        code.put(14,"E");
-        code.put(15,"F");
-
-        
-       
-        
-        
-        int currentNumber = 0;
-        int currentIdx = 0; 
-        int cnt = 0;
-        
-        while(cnt < t){
+        int cur = 0;
+        int nextNum = 0;
+        int turn = 1;
+        while(cur < t){
             
-            String next = getNdix(n,currentNumber++,"");
-            
-            if(next.length() != 1 && next.startsWith("0")) next= next.substring(1);
-            
-            for(int i=0; i<next.length() && cnt < t; i++){
-                                
-                if(currentIdx % (m) == p-1){
-                    answer+=next.charAt(i);
-
-                    cnt++;
+            String nw = getNth(nextNum, n);
+            nextNum++;
+            for(int i=0; i<nw.length() && cur < t; i++){
+                char nextOne = nw.charAt(i);
+                
+                if(turn == p) {
+                    answer.append(nextOne);
+                    cur++;    
                 }
-                currentIdx++;
+                
+                turn++;
+                if( turn > m) turn = 1;
             }
-            
             
         }
         
         
-        
-        return answer;
+        return answer.toString();
     }
     
-    public String getNdix(int n, int target, String str){
-        
-        if(n == 10) return String.valueOf(n);
-        if(target == 1) return "1"+str;
-        if(target == 0) return "0"+str;
-
-        
-        int remain = target % n;
-        String w = "";
-        if(remain < 10)  w = String.valueOf(remain);
-        else w = code.get(remain);
-          
-        return getNdix(n,target / n, w+str);
-        
-        
-        
+    public String getNth(int n, int k){
+        if(n == 0) return "0";
+        if(n < k  ) {
+            if(k >= 11) return get16Th(n);
+            return String.valueOf(n);
+        }
+        if(k < 10) return  getNth((n/k),k)+(n%k);
+        else return getNth((n/k),k)+get16Th((n%k));
+    }
+    
+    public String get16Th(int n){
+        if(n < 10) return String.valueOf(n);
+        if(n == 10) return "A";
+        if(n == 11) return "B";
+        if(n == 12) return "C";
+        if(n == 13) return "D";
+        if(n == 14) return "E";
+        return "F";
     }
 }
