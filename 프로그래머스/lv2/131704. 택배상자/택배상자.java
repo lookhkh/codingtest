@@ -16,9 +16,7 @@ class Solution {
         for(int i=0; i<order.length; i++){
             
             int nextOrder = order[i];
-                
-            //System.out.println(nextOrder+"  "+stack);
-            
+                            
             if(!que.isEmpty() && que.peek() == nextOrder){
                 que.poll();
                 answer++;
@@ -37,6 +35,7 @@ class Solution {
                if(stack.peek() == nextOrder){
                    stack.pop();
                    answer++;
+                   continue;
                }else{
                    if(!que.isEmpty()){
                      stack.push(que.poll());
