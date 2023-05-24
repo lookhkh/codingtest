@@ -1,52 +1,39 @@
-import java.util.*;
+/*
+    1. 부분수열.
+    2. 부분 수열의 합은 k
+    3. 동일한 부분 수열이 복수개 있을 경우, 길이가 짧은 놈
+    3번을 만족하는 놈이 복수개 있을 경우, 제일 앞에 있는 놈.
 
+*/
 class Solution {
-    
-    static class Temp{
-        int from;
-        int to;
-        int dis;
-        
-        public Temp(int from, int to){
-            this.from = from;
-            this.to = to;
-            this.dis = ( to - from ) +1;
-        }
-        
-    }
-    
-    List<Temp> list;
-    
     public int[] solution(int[] sequence, int k) {
         int[] answer = new int[2];
+        int minLength = Integer.MAX_VALUE;
         
-        list = new ArrayList<>();
-        
+        int sum = 0;
         
         int left = 0;
-        long result = 0;
-        
-        for(int right=0; right<sequence.length; right++){
+        for(int i=0; i<sequence.length; i++){
             
-            result+=sequence[right];
-            
-            while(left<sequence.length && result >= k){
-                
-                if(result == k){
-                    list.add(new Temp(left, right));
+            int next = sequence[i];
+            sum+= next;
+            if(sum >= k){
+                while(sum >= k){
+                    
+                    if(sum == k) {
+                        if(minLength > i-left+1){
+                            minLength = i-left+1;
+                            answer[0] = left;
+                            answer[1] = i;
+                        }
+                    }
+                    
+                    sum -= sequence[left++];
+                    
                 }
-                
-                result-= sequence[left++];
-                
             }
             
         }
-        
-        list.sort((t1,t2)->Integer.compare(t1.dis,t2.dis));
-        
-        answer[0] = list.get(0).from;
-        answer[1] = list.get(0).to;
-
         
         return answer;
     }
