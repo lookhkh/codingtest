@@ -4,8 +4,9 @@ class Solution {
     public String solution(String s) {
         String answer = "";
         
-        int[] strs = Arrays.stream(s.split(" "))
-                           .mapToInt(Integer::valueOf)
+        
+        long[] strs = Arrays.stream(s.split(" "))
+                           .mapToLong(Long::valueOf)
                            .toArray();
         
         Arrays.sort(strs);
