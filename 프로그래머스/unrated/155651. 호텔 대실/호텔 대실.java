@@ -18,24 +18,14 @@ class Solution {
         PriorityQueue<Integer> que = new PriorityQueue<>((t1,t2)->Integer.compare(t1,t2));
         
         for(int[] next : time){
-            if(que.isEmpty()){
-                que.add(next[1]+10);
-                answer++;
-            }else{
-                if(que.peek()<= next[0]) {
-                    que.add(next[1]+10);
-                    que.poll();
-                    continue;
-                }
-                
-                else{
-                    que.add(next[1]+10);
-                    answer++;
-                }
-                
-                
+           
+            while(!que.isEmpty() && que.peek() <= next[0]){
+                que.poll();
             }
             
+            que.add(next[1]+10);
+            answer = Math.max(answer, que.size());
+        
         }
         
         return answer;
