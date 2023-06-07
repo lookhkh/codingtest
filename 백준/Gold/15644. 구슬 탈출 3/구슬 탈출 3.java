@@ -175,7 +175,7 @@ public class Main {
 					
 					if(redR) {
 						
-						if(redBal.movable(nextDir) || blueBal.movable(nextDir)) continue;
+						if(blueBal.movable(nextDir)) continue;
 						
 						if(blueR) {
 							result = false;
