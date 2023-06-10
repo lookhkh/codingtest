@@ -1,43 +1,37 @@
 import java.util.Arrays;
-
 class Solution {
     public long solution(int n, int[] times) {
-        long answer = 0;
-        
         Arrays.sort(times);
         
-        int max =times[times.length-1];
+        long left = 1;
+        long right = (long)times[times.length-1] * n;
+
+        long answer = Long.MAX_VALUE;
         
-        long left = 0;
-        long right = (long)max * n;
-        System.out.println(right);
-        long min = Long.MAX_VALUE;
-        
-        while(left < right){
-                
-            long mid = (right + left) /2;
-            if(check(mid, n, times)){
-                
-                right = mid;
-                min = Math.min(min,mid);
-                
+        while(left <= right){
+            
+            long mid = (left + right) / 2;
+            
+            if(check(times, mid, n) >= n){
+                right = mid-1;
+                answer = Math.min(answer, mid);
             }else{
                 left = mid+1;
             }
             
         }
         
-        return min;
+        return answer;
     }
-    
-    public boolean check(long k, long num, int[] times){
-        long answer = 0;
-        for(int i=0; i<times.length; i++){
-            int next = times[i];
-            answer+=  k / next;
+    public long check(int[] times, long mid, long n){
+        
+        long cnt = 0;
+        
+        for(int t : times){
+            if(cnt >= n) return n;
+            cnt += mid / t;
         }
         
-        if(answer >= num) return true;
-        return false;
+        return cnt;
     }
 }
