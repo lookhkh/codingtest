@@ -1,20 +1,27 @@
 class Solution {
     public int solution(int n) {
+        int answer = 0;
         
-        int originalBitCnt = Integer.bitCount(n);
+        long nBits = getBits(n);
         
         int next = n;
-        
         while(true){
-            
-            next+=1;
-            int tempCnt = Integer.bitCount(next);
-            
-            if(tempCnt == originalBitCnt) return next;
-            
+            long nextBits = getBits(++next);
+            if(nextBits == nBits) return next;
         }
-
+        
+        
     }
     
-  
+    public long getBits(int number){
+        int count = 0;
+
+        while (number != 0) {
+            count += number & 1;  // Add the rightmost bit to the count
+            number >>>= 1;       // Shift the number to the right by 1 bit
+        }
+        
+        return count;
+
+    }
 }
