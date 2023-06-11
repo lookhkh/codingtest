@@ -12,18 +12,12 @@ class Solution {
                 if(i >= keySize-1 && i <= keySize + lockSize-2 ){
                     if(j >= keySize-1 && j <= keySize + lockSize-2){
                         extendLock[i][j] = lock[i-(keySize-1)][j-(keySize-1)];
+                        if(extendLock[i][j] == 0) cnt++;
                     }
                 }
             }
         }
         
-        print(extendLock);
-        
-        for(int i=0; i<extendLock.length; i++){
-            for(int j=0; j<extendLock[0].length; j++){
-                if(extendLock[i][j] == 0) cnt++;
-            }
-        }
         
         for(int i=0; i<extendLock.length; i++){
             for(int j=0; j<extendLock[0].length; j++){
@@ -52,17 +46,7 @@ class Solution {
         return false;
         
     }
-    
-    public void print(int[][] r){
-        for(int i=0; i<r.length; i++){
-            String t ="";
-            for(int j=0; j<r[0].length; j++){
-                t+=r[i][j];
-            }
-            System.out.println(t);
-        }
-    }
-    
+
     public int[][] rotate(int[][] original, int type){
         
         if(type== 0) return original;
