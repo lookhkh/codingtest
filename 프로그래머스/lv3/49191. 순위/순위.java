@@ -25,12 +25,12 @@ class Solution {
         for(int k=1; k<=n; k++){
             for(int i=1; i<=n; i++){
                 for(int j=1; j<=n; j++){
-                    if(arr[i][k] == 1 && arr[k][j] == 1){
-                        arr[i][j] = 1;
-                        arr[j][i] = -1;
-                    }
+                   if(arr[i][k] == 1 && arr[k][j] == 1){
+                       arr[i][j] = 1;
+                       arr[j][i] = -1;
+                   }
                     
-                    if(arr[i][k] == -1 && arr[k][j] == -1){
+                    if(arr[i][j] == -1 && arr[k][j] == -1){
                         arr[i][j] = -1;
                         arr[j][i] = 1;
                     }
