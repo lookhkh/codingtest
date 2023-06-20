@@ -48,7 +48,7 @@ public class Main {
 		
 	}
 	private static void dfs(int idx, int w) {
-		if(w < 0 || w > max) return;
+		if(w > max) return;
 		if(dp[idx][w]) return;
 		dp[idx][w] = true;
 		if(idx == n) return;
