@@ -2,54 +2,56 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
+	static boolean[] ch;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
 		StringTokenizer tk = new StringTokenizer(br.readLine()," ");
 		
-		double a = Double.valueOf(tk.nextToken());
-		double b = Double.valueOf(tk.nextToken());
+		long a = Long.valueOf(tk.nextToken());
+		long b = Long.valueOf(tk.nextToken());
 		
-		boolean[] arr = new boolean[(int)Math.sqrt((long)b)+1];
+				
+		ch = new boolean[(int)Math.sqrt(b)+1];
 		
-		Arrays.fill(arr, true);
+		init();
 	
-		아르티네스의체(arr);
-		long cnt = 0;
-		for(int i=2; i<arr.length; i++) {
+		long sum = 0;
+		
+		for(int i=1; i<ch.length; i++) {
 			
-			if(!arr[i]) continue;
+			if(ch[i]) continue;
 			
-			int n = 2;
+			int n =2;
 			while(true) {
 				
-				double temp =  Math.pow(i, n++);
-				if(temp >=a && temp <= b) cnt++;
-				if(temp > b) break;
+				long next = (long)Math.pow(i, n);
+				if(next>=a && next<=b) sum++;
+				if(next > b) break;
+				n++;
+				
 			}
 
-			
 		}
 		
-		System.out.println(cnt);
-		
+		System.out.println(sum);
 	}
 
-	private static void 아르티네스의체(boolean[] arr) {
+	private static void init() {
 		
-		arr[1] = false;
+		int last = ch.length;
+		ch[1] = true;
 		
-		for(int i=2; i<arr.length; i++) {
-			for(int j=i+i; j<arr.length; j+=i) {
-				if(!arr[j]) continue;
-				arr[j] = false;
+		for(int i=2; i<Math.sqrt(last);i++) {
+			for(int j=i+i; j<last; j+=i) {
+				if(ch[j]) continue;
+				ch[j] = true;
 			}
 		}
+		
 		
 	}
 }
