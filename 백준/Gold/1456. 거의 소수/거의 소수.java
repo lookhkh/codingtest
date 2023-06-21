@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -47,7 +46,6 @@ public class Main {
 		
 		for(int i=2; i<Math.sqrt(last);i++) {
 			for(int j=i+i; j<last; j+=i) {
-				if(ch[j]) continue;
 				ch[j] = true;
 			}
 		}
