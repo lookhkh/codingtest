@@ -11,15 +11,14 @@ public class Solution {
             if(prev == -1){
                 prev = next;
                 ans.add(prev);
+                continue;
             } 
-            else{
                 
-                if(prev != next){
-                    i--;
-                    prev = -1;
-                    continue;
-                }
-            }
+            if(prev == next) continue;
+            
+            i--;
+            prev = -1;            
+            
         }
 
         return ans;
