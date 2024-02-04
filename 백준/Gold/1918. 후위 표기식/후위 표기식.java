@@ -1,79 +1,76 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Map;
 import java.util.Stack;
 
 public class Main {
-		
-	private static int getPriority(char target) {
-		
-		if(target == '+' || target =='-') return 0;
-		else if(target == '*' || target == '/') return 1;
-		else return -1;
-		
-	}
 	
-	public static void main(String[] args) {
 		
-		Scanner in = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
 		
-		StringBuilder b= new StringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String result = convert(br.readLine());
+		System.out.print(result);
+	}
+
+	private static String convert(String readLine) {
 		
-		Stack<Character> stack = new Stack<>();
+		StringBuilder b = new StringBuilder();
 		
-		String str = in.nextLine();
+		Map<Character, Integer> priority = Map.of(
+				'+', 1, 
+				'-', 1, 
+				'*', 2, 
+				'/', 2, 
+				'(', 3, 
+				')', 3);
 		
+		Stack<Character> operator = new Stack<>();
 		
-		for(int i=0; i<str.length(); i++) {
+		char[] chars = readLine.toCharArray();
+		
+		for(char next : chars) {
 			
-			char next = str.charAt(i);
-			
-			if(next >='A' && next <='Z') b.append(next);
-			else {
+			if(next == '+' || next == '-' || next =='*' || next =='/' || next=='(' || next ==')') {
 				
-				if(stack.isEmpty()) stack.push(next);
+				if(operator.isEmpty()) operator.add(next);
 				else {
 					
-					char atTop = stack.peek();
-					
-					if(next==')') {
+					if(next ==')') {
+						while(!operator.isEmpty()) {
+							char top = operator.pop();
+							if(top == '(') break;
+							b.append(top);
+						}
+					}else {
+											
+						int curPriority = priority.get(next);
 						
-						while(!stack.isEmpty() && stack.peek()!='(') {
-							b.append(stack.pop());
+						while(!operator.isEmpty()) {
+								
+							int topPriority = priority.get(operator.peek());
+							if(topPriority == 3) break;
+							if(curPriority > topPriority) break;
+							b.append(operator.pop());
+							
 						}
 						
-						if(!stack.isEmpty() && stack.peek()=='(') stack.pop(); 
-						continue;
+						operator.add(next);
 					}
-					
-					if(next=='(') {
-						stack.push(next);
-						continue;
-					}
-					
-					if(getPriority(atTop) >= getPriority(next)) {
-						
-						while(!stack.isEmpty() && getPriority(stack.peek()) >= getPriority(next)) {
-							b.append(stack.pop());								
-						}
-						
-						stack.push(next);
-
-						
-					}
-					
-					else {
-						stack.push(next);
-					}
-					
 				}
 				
-				
+			}else {
+				b.append(next);
 			}
 			
 		}
 		
-		while(!stack.isEmpty()) b.append(stack.pop());
-		System.out.println(b.toString());
-	}
-	
+		while(!operator.isEmpty()) b.append(operator.pop());
+		
 
-  }
+		return b.toString();
+	}
+
+
+}
