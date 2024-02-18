@@ -23,7 +23,7 @@ class Solution {
                     curHealth+=plusHeal;
                     successCnt = 0;
                 }
-                if(curHealth > health) curHealth = health;
+                curHealth = Math.min(curHealth, health);
 
             }
         }
