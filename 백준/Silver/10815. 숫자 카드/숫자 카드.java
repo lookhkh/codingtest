@@ -28,7 +28,7 @@ class Main {
                 .toArray();
 
         int[] result = Arrays.stream(targetNumberList)
-                .map(t -> Arrays.binarySearch(cards, t) >= 0 ? 1 : 0)
+                .map(t -> binarySearch(cards, t) >= 0 ? 1 : 0)
                 .toArray();
 
         StringBuilder b = new StringBuilder();
@@ -37,6 +37,26 @@ class Main {
         }
 
         System.out.println(b.substring(0, b.length()-1));
+
+    }
+
+    private static int binarySearch(int[] cards, int target) {
+
+        int left = 0;
+        int right = cards.length-1;
+
+        while(left <= right){
+
+            int mid = (left+right)/2;
+            int cardVal = cards[mid];
+            if(cardVal == target) return mid;
+
+            if(cardVal > target) right = mid -1;
+            else left = mid + 1;
+
+        }
+
+        return -1;
 
     }
 
