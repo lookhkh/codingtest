@@ -25,9 +25,9 @@ class Solution {
             common += Integer.min(r1,r2) * 1.0;
             sum += Integer.max(r1,r2)*1.0;
         }
-        System.out.println(common+" "+sum);
+
         if(common == 0) return 0;
-        if(sum == 0) return 65536;
+
         int re = (int)((common / sum) * 65536.0);
         
         
