@@ -8,7 +8,6 @@
 import java.util.*;
 class Solution {
     public int[] solution(String s) {
-        int[] answer = {};
         s = s.substring(1, s.length());
         s = s.substring(0, s.length()-1);
         s = s.substring(0, s.length());
@@ -22,18 +21,14 @@ class Solution {
         }
         
         list.sort((t1,t2)->Integer.compare(t1.length, t2.length));
-        answer = new int[list.get(list.size()-1).length];
+        int[] answer = new int[list.get(list.size()-1).length];
         Set<Integer> set = new HashSet<>();
-        
         int idx = 0;
         
         for(String[] next: list){
             for(String n : next){
                 int t = Integer.parseInt(n);
-                if(!set.contains(t)){
-                    answer[idx++] = t;
-                    set.add(t);
-                }
+                if(set.add(t)) answer[idx++] = t;
             }
         }
         
