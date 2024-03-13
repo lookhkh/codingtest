@@ -4,7 +4,7 @@ class Solution {
     public List<Integer> solution(int n) {
         int[] answer = {};
         int[][] history = new int[n][n];
-        if(n == 1) return Arrays.asList(1);
+
         recursive(history, 0,0);
         
         List<Integer> ans = new ArrayList<>();
@@ -20,6 +20,7 @@ class Solution {
     }
     
     void recursive(int[][] history, int x, int y){
+        if(x >=history.length) return;
         if(history[x][y] !=0) return;
         int[] nextAfterDown = moveDown(history, x, y);
         int[] nextAfterRight = moveRight(history, nextAfterDown[0],nextAfterDown[1]+1);
