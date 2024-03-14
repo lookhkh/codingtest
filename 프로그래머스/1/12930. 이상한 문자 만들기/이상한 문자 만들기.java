@@ -17,10 +17,10 @@ class Solution {
                 if(offset == -1) offset = i;
                 int idx = i - offset;
                 if(idx == 0 || idx % 2 ==0){
-                    if(!Character.isUpperCase(next)) b.append(String.valueOf(next).toUpperCase());
+                    if(!Character.isUpperCase(next)) b.append(Character.toUpperCase(next));
                     else b.append(next);
                 }else{
-                    if(Character.isUpperCase(next)) b.append(String.valueOf(next).toLowerCase());
+                    if(Character.isUpperCase(next)) b.append(Character.toLowerCase(next));
                     else b.append(next);
                 }
                 
