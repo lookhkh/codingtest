@@ -1,20 +1,16 @@
 class Solution {
     boolean solution(String s) {
-        boolean answer = true;
+        int p = 0;
+        int y = 0;
         
-        s = s.toLowerCase();
+        char[] ss = s.toCharArray();
         
-        int pp = 0;
-        int ss = 0;
-        
-        for(int i=0; i<s.length(); i++){
-            char next = s.charAt(i);
-            if(next == 'y') ss++;
-            if(next == 'p') pp++;
+        for(char sss : ss){
+            if(sss == 'p' || sss =='P') p++;
+            if(sss == 'y' || sss =='Y') y++;
         }
         
         
-        
-        return pp == ss;
+        return p == y;
     }
 }
