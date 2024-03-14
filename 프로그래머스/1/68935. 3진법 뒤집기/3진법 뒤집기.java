@@ -2,20 +2,9 @@ import java.util.*;
 class Solution {
     public int solution(int n) {
         int answer = 0;
-        String b = convert(n);    
-        return Integer.parseInt(b,3);
-            }
-    
-    String convert(int n){
-        StringBuilder b = new StringBuilder();
-        while(n > 0){
-            int remain = n%3;
-            b.append(remain);
-            n /= 3;
-        }
-        return b.toString();
+        String b = Integer.toString(n,3); 
+        StringBuilder bb = new StringBuilder(b);
+        bb.reverse();
+        return Integer.parseInt(bb.toString(),3);
     }
-    
-    
-    
 }
