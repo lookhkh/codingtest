@@ -1,25 +1,18 @@
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-
+import java.util.*;
 class Solution {
-    List<List<Integer>> arr = new ArrayList<>();
-    public List<List<Integer>> solution(int n) {
+    List<int[]> ans = new ArrayList<>();
+    public List<int[]> solution(int n) {
         int[][] answer = {};
-        
-        hanoi(n, 1,3,2);
-                
-        
-        return arr;
+        move(n, 1, 2, 3);
+        return ans;
     }
     
-    public void hanoi(int row, int source, int destionation, int temp){
-        if(row >0){
-             
-            hanoi(row-1, source, temp, destionation);
-            arr.add(Arrays.asList(source, destionation));
-            hanoi(row-1, temp, destionation, source);
-
+    void move(int n, int source ,int middle, int des){
+        if(n == 1) ans.add(new int[]{source, des});
+        else{
+            move(n-1, source, des, middle);
+            ans.add(new int[]{source, des});
+            move(n-1, middle, source, des);
         }
     }
 }
