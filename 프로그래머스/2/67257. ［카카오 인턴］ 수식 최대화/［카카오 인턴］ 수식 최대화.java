@@ -22,9 +22,6 @@ class Solution {
                if(!isOper(exp)) nums.push(exp);
                else{
                     
-                   if(opers.isEmpty()) opers.push(exp);
-                   else{
-                       
                      int curP = p.get(exp);
                       
                      while(!opers.isEmpty() && curP <= p.get(opers.peek())){
@@ -39,7 +36,7 @@ class Solution {
                          
                     opers.push(exp);
                          
-                     }
+                     
                    }
                    
                }
