@@ -15,7 +15,7 @@ class Solution {
             
             if(!que.isEmpty()){
                 Truck head = que.peek();
-                if(t - head.time >= bridge_length){
+                if(t - head.time == bridge_length){
                     Truck h = que.poll();
                     weightSum -= h.weight;
                 }
