@@ -7,13 +7,13 @@ class Solution {
         for(String next : skill_trees){
             boolean result = true;
             
-            for(char n : next.toCharArray()){
-                if(status.contains(n)){
-                    if(status.isRightOrder(n)) status.insert(n);
-                    else{
-                        result = false;
-                        break;
-                    }
+            char[] arr = next.toCharArray();
+            for(int i=0; i<arr.length && result; i++){
+                char n = arr[i];
+                if(!status.contains(n)) continue;
+                if(status.isRightOrder(n)) status.insert(n);
+                else{
+                   result = false;
                 }
             }
             
@@ -28,15 +28,15 @@ class Solution {
 
 class Status{
     Map<Character,Integer> skils;
-    Queue<Character> pre;
+    char[] pre;
+    int idx;
     
     Status(String skill){
         this.skils = new HashMap<>();
-        this.pre = new LinkedList<>();
-        
+        this.pre = skill.toCharArray();
+        this.idx = 0;    
         for(char next : skill.toCharArray()){
             skils.put(next, 1);
-            pre.add(next);
         }
         
     }
@@ -45,17 +45,13 @@ class Status{
         return skils.containsKey(ch);
     }
     boolean isRightOrder(char ch){
-        return pre.peek() == ch;
+        return this.pre[this.idx] == ch;
     }
     void insert(char ch){
-        pre.poll();
-        pre.add(ch);
+        this.idx++;
     }
     
     void reset(String str){
-        this.pre = new LinkedList<>();
-        for(char next : str.toCharArray()){
-            pre.add(next);
-        }
+        this.idx = 0;
     }
 }
