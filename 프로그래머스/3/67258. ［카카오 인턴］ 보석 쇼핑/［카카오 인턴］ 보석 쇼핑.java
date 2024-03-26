@@ -4,22 +4,19 @@
 **/
 import java.util.*;
 class Solution {
-    int cnt = 0;
+
     public int[] solution(String[] gems) {
-        int[] answer = new int[]{Integer.MAX_VALUE, Integer.MAX_VALUE};
+        int[] answer = new int[]{1, gems.length};
         
-        Set<String> set = new HashSet<>();
-        for(String gem : gems) set.add(gem);
+        Set<String> set = new HashSet<>(List.of(gems));
         
         Map<String,Integer> cur = new HashMap<>();
         
-        
         int l = 0;
         cur.put(gems[l], 1);
-        cnt++;
         int min = Integer.MAX_VALUE;
         
-        if(check(set)){
+        if(check(set, cur)){
                 min = 0;
                 answer[0] = 1;
                 answer[1] = 1;
@@ -33,15 +30,14 @@ class Solution {
                 String left = gems[l];
                 if(left.equals(next) || cur.get(left) > 1){
                     cur.put(left, cur.get(left)-1);
-                    if(cur.get(left) == 0) cnt--;
+                    if(cur.get(left) == 0) cur.remove(left);
                     l++;
                 }else break;
                 
             }
             
             cur.put(next, cur.getOrDefault(next,0)+1);
-            if(cur.get(next) == 1) cnt++;
-            if(check(set)){
+            if(check(set, cur)){
                 int res = r - l;
                 if(res >= min) continue;
                 min = res;
@@ -55,9 +51,9 @@ class Solution {
         return answer;
     }
     
-    boolean check(Set<String> set){
+    boolean check(Set<String> set, Map<String,Integer> cur){
       
-        return this.cnt==set.size();
+        return cur.size()==set.size();
         
     }
     
