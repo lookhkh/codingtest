@@ -1,81 +1,47 @@
-import java.util.LinkedHashMap;
-import java.util.Map;
 class Solution {
-  public String solution(String m, String[] musicinfos) {
-      String transformedM = transformSharp(m);
-
-        String[][] parsedMusiinfos = new String[musicinfos.length][4];
-        for(int i = 0; i < musicinfos.length; i++) {
-            String[] tmp = musicinfos[i].split(",");
-            for(int j = 0; j < 4; j++) {
-                parsedMusiinfos[i][j] = tmp[j];
-            }
-        }
-
-        String[] transformedMusic = new String[musicinfos.length];
-        for(int i = 0; i < transformedMusic.length; i++) {
-            transformedMusic[i] = transformSharp(parsedMusiinfos[i][3]);
-        }
-
-        Map<String, MusicInfo> playedMusics = new LinkedHashMap<>();
-
-        for(int i = 0; i < parsedMusiinfos.length; i++) {
-            int time = betweenTime(parsedMusiinfos[i][0], parsedMusiinfos[i][1]);
-            StringBuilder playedMusic = new StringBuilder();
-            if(time <= transformedMusic[i].length()) {
-                playedMusic.append(transformedMusic[i].substring(0, time));
-            }else {
-                for(int j = 0; j < time / transformedMusic[i].length(); j++) {
-                    playedMusic.append(transformedMusic[i]);
-                }
-                playedMusic.append(transformedMusic[i].substring(0, time % transformedMusic[i].length()));
-            }
-            playedMusics.put(playedMusic.toString(), new MusicInfo(parsedMusiinfos[i][2], time));
-        }
-        int longestPlayedTime = 0;
+    public String solution(String m, String[] musicinfos) {
         String answer = "(None)";
-        for(String key : playedMusics.keySet()) {
-            if(key.contains(transformedM)) {
-                int playedTime = playedMusics.get(key).playedTime;
-                if(longestPlayedTime < playedTime) {
-                    longestPlayedTime = playedTime;
-                    answer = playedMusics.get(key).musicName;
-                }
+        m = replace(m);
+        int maxTime = -1;
+        
+        for(String next : musicinfos){
+            String[] arr = next.split(",");
+            int duration = getDuration(arr[0],arr[1]);
+            String info = replace(arr[3]);
+            StringBuilder b = new StringBuilder();
+            
+            while(info.length() < duration){
+                info += info;
             }
+            
+            info = info.substring(0, duration);
+            
+            if(info.contains(m) && maxTime < duration){
+                maxTime = duration;
+                answer = arr[2];
+            }
+            
+            
         }
+        
         return answer;
-  }
-    int betweenTime(String start, String end) {
-        String[] splitedStart = start.split(":");
-        String[] splitedEnd = end.split(":");
-        return (Integer.parseInt(splitedEnd[0]) * 60 + Integer.parseInt(splitedEnd[1])) - (Integer.parseInt(splitedStart[0]) * 60 + Integer.parseInt(splitedStart[1]));
     }
-    String transformSharp(String m) {
-        StringBuilder sb = new StringBuilder();
-        char current, next;
-        int length = m.length();
-        for(int i = 0; i < length - 1; i++) {
-            current = m.charAt(i);
-            next = m.charAt(i + 1);
-            if(next == '#') {
-                sb.append((char)(current + 32));
-                i++;
-            }else {
-                sb.append(current);
-            }
-        }
-        char last = m.charAt(length - 1);
-        if(last != '#') {
-            sb.append(last);
-        }
-        return sb.toString();
+    
+    int getDuration(String start, String end){
+        return getDuration(end) - getDuration(start);
     }
-}
-class MusicInfo {
-        String musicName;
-        int playedTime;
-        public MusicInfo(String musicName, int playedTime) {
-            this.musicName = musicName;
-            this.playedTime = playedTime;
-        }
+    
+    int getDuration(String time){
+        return Integer.parseInt(time.substring(0,2)) * 60 + Integer.parseInt(time.substring(3));
+    }
+    
+    String replace(String m){
+    return m
+        .replaceAll("C#","c")
+        .replaceAll("D#","d")
+        .replaceAll("F#","f")
+        .replaceAll("G#","g")
+        .replaceAll("A#","a")
+        .replaceAll("B#","b");
+    }
 }
