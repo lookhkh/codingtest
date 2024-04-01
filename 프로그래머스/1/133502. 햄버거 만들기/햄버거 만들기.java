@@ -2,7 +2,7 @@ import java.util.*;
 class Solution {
           public int solution(int[] ingredient) {
             int answer = 0;
-            int[] lists = new int[ingredient.length+1];
+            int[] lists = new int[ingredient.length];
             int lastIdx = 0;
             for (int next : ingredient) {
                 lists[lastIdx] = next;
