@@ -18,24 +18,22 @@ class Solution {
         if(cur == cnt){
             int[] rionArr = new int[11];
             int pathCnt = 0;
+            int rion = 0;
+            int apache = 0;
             for(int i=0; i<path.length; i++){
                 if(path[i]){
                     pathCnt ++;
                     if(n < info[i]) return;
                     n-= (info[i]+1);
                     rionArr[i] = info[i]+1;
+                    rion+=10-i;
+                }else{
+                    if(info[i] > 0) apache+= 10-i;
                 }
             }
             
             
             if(n < 0) return;
-            
-            int apache = 0;
-            int rion = 0;
-            for(int i=0; i<path.length; i++){
-                if(path[i]) rion+= 10 - i;
-                else if(info[i] > 0) apache += 10-i;
-            }
             
             if(n > 0){
               rionArr[10] += n;
