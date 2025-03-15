@@ -1,18 +1,9 @@
 def solution(lines):
-    answer = 0
     
-    dict = {value: 0 for value in (x for x in range(-100, 101))}
+    set1 = set(x for x in range(lines[0][0], lines[0][1]))
+    set2 = set(x for x in range(lines[1][0], lines[1][1]))
+    set3 = set(x for x in range(lines[2][0], lines[2][1]))
     
-    for next in lines:
-        for to in range(next[0], next[1]):
-            dict[to] +=1
-    
-    
-    for key in dict:
-        val = dict[key]
-        if val >= 2 : print(key, val)
-        if val >= 2: answer+=1
-        
-    
-    return answer
+
+    return len(set1 & set2 | set1 & set3 | set2 & set3)
 
